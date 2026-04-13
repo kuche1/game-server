@@ -8,10 +8,6 @@ import (
 )
 
 func ServerInstall(forceInstallDir string, gameID int64) {
-	if libutil.Exists(forceInstallDir) {
-		log.Fatalf("Path exists: %v\n", forceInstallDir)
-	}
-
 	runCustom(forceInstallDir, "+app_update", fmt.Sprintf("%v", gameID), "validate")
 }
 
