@@ -5,24 +5,23 @@ import (
 	"fmt"
 	"os"
 	"slices"
+
+	"github.com/kuche1/game-server/libgame"
 )
 
 func main() {
 	pGameName := flag.String("game", "", "Game name")
-	gameFolder := flag.String("folder", "", "Game folder")
-	action := flag.String("action", "", "Action to perform")
+	pGameFolder := flag.String("folder", "", "Game folder")
+	pAction := flag.String("action", "", "Action to perform")
 
 	flag.Parse()
 
-	fmt.Printf("pGameName=%v\n", *pGameName)   // TODO: use
-	fmt.Printf("gameFolder=%v\n", *gameFolder) // TODO: use
-	fmt.Printf("action=%v\n", *action)         // TODO: use
+	///// game
 
 	gameName := *pGameName
 
 	if gameName == "" {
-		fmt.Fprintf(os.Stderr, "Game not specified\n")
-		flag.Usage()
+		fmt.Fprintf(os.Stderr, "Game not specified, see -help\n")
 		os.Exit(1)
 	}
 
@@ -34,6 +33,34 @@ func main() {
 		for _, name := range gameNames {
 			fmt.Fprintf(os.Stderr, "- %v\n", name)
 		}
+		os.Exit(1)
+	}
+
+	///// folder
+
+	gameFolder := *pGameFolder
+
+	if gameFolder == "" {
+		fmt.Fprintf(os.Stderr, "Folder not specified, see -help\n")
+		os.Exit(1)
+	}
+
+	///// action
+
+	action := *pAction
+
+	if action == "" {
+		fmt.Fprintf(os.Stderr, "Folder not specified, see -help\n")
+		os.Exit(1)
+	}
+
+	///// run
+
+	gameImpl := GameList[gameName](gameFolder)
+
+	badActionMessage := libgame.RunAction(gameImpl, action)
+	if badActionMessage != "" {
+		fmt.Fprint(os.Stderr, badActionMessage)
 		os.Exit(1)
 	}
 }

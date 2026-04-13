@@ -20,7 +20,7 @@ func (g *GameDayOfDefeatSource) UpdateServer() {
 	panic("Not Implemented") // TODO
 }
 
-func (g *GameDayOfDefeatSource) StartServerForeground() {
+func (g *GameDayOfDefeatSource) StartServer() {
 	panic("Not Implemented") // TODO
 }
 
