@@ -33,11 +33,8 @@ func (g *GameDayOfDefeatSource) StartServer() {
 		"./srcds_run",
 		true,
 		g.folder,
-		"-console", // TODO: remove if possible
 		"-game", "dod",
-		"-secure",           // TODO: remove if possible
-		"+maxplayers", "22", // TODO: remove if possible
-		"+map", "dod_anzio", // TODO: remove if possible
+		"+map", "dod_anzio", // mandatory
 	)
 }
 
