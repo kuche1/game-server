@@ -14,6 +14,7 @@ func runCustom(forceInstallDir string, additionalCmdline ...string) {
 		executable,
 		false,
 		"",
+		true,
 		"--help",
 	)
 
@@ -29,6 +30,7 @@ func runCustom(forceInstallDir string, additionalCmdline ...string) {
 		executable,
 		true,
 		"",
+		true,
 		args...,
 	)
 }

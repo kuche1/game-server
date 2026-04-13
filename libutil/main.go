@@ -30,7 +30,7 @@ func IsFolder(path string) bool {
 	return info.IsDir()
 }
 
-func Exec(executable string, printOutput bool, cwd string, args ...string) {
+func Exec(executable string, printOutput bool, cwd string, blocking bool, args ...string) {
 	cmd := exec.Command(executable, args...)
 
 	cmd.Dir = cwd
@@ -40,7 +40,14 @@ func Exec(executable string, printOutput bool, cwd string, args ...string) {
 		cmd.Stderr = os.Stderr
 	}
 
-	err := cmd.Run()
+	var err error
+
+	if blocking {
+		err = cmd.Run()
+	} else {
+		err = cmd.Start()
+	}
+
 	if err != nil {
 		log.Fatal(err)
 	}

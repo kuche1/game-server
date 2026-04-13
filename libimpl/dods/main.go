@@ -41,7 +41,7 @@ func (g *GameDayOfDefeatSource) UpdateServer() {
 	libsteamcmd.ServerUpdate(g.folder, gameID)
 }
 
-func (g *GameDayOfDefeatSource) StartServer() {
+func (g *GameDayOfDefeatSource) StartServer(blocking bool) {
 	settings := _NewSettings()
 	libsettings.Load(g.folder, settings)
 
@@ -49,11 +49,8 @@ func (g *GameDayOfDefeatSource) StartServer() {
 		"./srcds_run",
 		true,
 		g.folder,
+		blocking,
 		"-game", "dod",
 		"+map", settings.StartingMap, // mandatory (or at least for dods)
 	)
-}
-
-func (g *GameDayOfDefeatSource) StartServerFork() {
-	panic("Not Implemented") // TODO
 }

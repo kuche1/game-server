@@ -13,8 +13,7 @@ const _ActionStartFork = "start-fork"
 type Game interface {
 	CreateServer()
 	UpdateServer()
-	StartServer()
-	StartServerFork()
+	StartServer(blocking bool)
 }
 
 func RunAction(game Game, action string) (_badActionMessage string) {
@@ -27,10 +26,10 @@ func RunAction(game Game, action string) (_badActionMessage string) {
 		game.UpdateServer()
 
 	case _ActionStart:
-		game.StartServer()
+		game.StartServer(true)
 
 	case _ActionStartFork:
-		game.StartServerFork()
+		game.StartServer(false)
 
 	default:
 		var sb strings.Builder
