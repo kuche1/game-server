@@ -34,7 +34,7 @@ func (g *GameDayOfDefeatSource) StartServer() {
 		true,
 		g.folder,
 		"-game", "dod",
-		"+map", "dod_anzio", // mandatory
+		"+map", "dod_anzio", // mandatory (or at least for dods)
 	)
 }
 
