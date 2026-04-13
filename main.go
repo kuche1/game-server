@@ -1,26 +1,39 @@
 package main
 
 import (
+	"flag"
 	"fmt"
-	"log"
-
-	"github.com/AlecAivazis/survey/v2"
+	"os"
+	"slices"
 )
 
 func main() {
-	fmt.Printf("hi\n")
+	pGameName := flag.String("game", "", "Game name")
+	gameFolder := flag.String("folder", "", "Game folder")
+	action := flag.String("action", "", "Action to perform")
 
-	var choice int
+	flag.Parse()
 
-	prompt := &survey.Select{
-		Message: "Choose an option:",
-		Options: []string{"Start", "Settings", "Quit"},
+	fmt.Printf("pGameName=%v\n", *pGameName)   // TODO: use
+	fmt.Printf("gameFolder=%v\n", *gameFolder) // TODO: use
+	fmt.Printf("action=%v\n", *action)         // TODO: use
+
+	gameName := *pGameName
+
+	if gameName == "" {
+		fmt.Fprintf(os.Stderr, "Game not specified\n")
+		flag.Usage()
+		os.Exit(1)
 	}
 
-	err := survey.AskOne(prompt, &choice)
-	if err != nil {
-		log.Fatal(err)
+	gameNames := getGameNames()
+	if !slices.Contains(gameNames, gameName) {
+		fmt.Fprintf(os.Stderr, "Invalid game:\n")
+		fmt.Fprintf(os.Stderr, "- %v\n", gameName)
+		fmt.Fprintf(os.Stderr, "Valid games:\n")
+		for _, name := range gameNames {
+			fmt.Fprintf(os.Stderr, "- %v\n", name)
+		}
+		os.Exit(1)
 	}
-
-	fmt.Printf("choice=%v\n", choice)
 }
