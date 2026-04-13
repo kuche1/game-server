@@ -6,6 +6,7 @@
 package dods
 
 import (
+	"fmt"
 	"log"
 
 	"github.com/kuche1/game-server/libgame"
@@ -51,6 +52,7 @@ func (g *GameDayOfDefeatSource) StartServer(blocking bool) {
 		g.folder,
 		blocking,
 		"-game", "dod",
+		"-port", fmt.Sprintf("%v", settings.Port),
 		"+map", settings.StartingMap, // mandatory (or at least for dods)
 	)
 }
