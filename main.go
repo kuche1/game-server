@@ -3,7 +3,9 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"os"
+	"path/filepath"
 	"slices"
 
 	"github.com/kuche1/game-server/libgame"
@@ -43,6 +45,12 @@ func main() {
 	if gameFolder == "" {
 		fmt.Fprintf(os.Stderr, "Folder not specified, see -help\n")
 		os.Exit(1)
+	}
+
+	var err error
+	gameFolder, err = filepath.Abs(gameFolder)
+	if err != nil {
+		log.Fatal(err)
 	}
 
 	///// action

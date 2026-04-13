@@ -1,23 +1,30 @@
+// https://zap-hosting.com/guides/docs/dedicated-linux-dods/
+
 package dods
 
-import "github.com/kuche1/game-server/libgame"
+import (
+	"github.com/kuche1/game-server/libgame"
+	"github.com/kuche1/game-server/libsteamcmd"
+)
+
+const gameID = 232290
 
 type GameDayOfDefeatSource struct {
-	gameFolder string
+	folder string
 }
 
 func NewGameDayOfDefeatSource(gameFolder string) libgame.Game {
 	return &GameDayOfDefeatSource{
-		gameFolder: gameFolder,
+		folder: gameFolder,
 	}
 }
 
 func (g *GameDayOfDefeatSource) CreateServer() {
-	panic("Not Implemented") // TODO
+	libsteamcmd.ServerInstall(g.folder, gameID)
 }
 
 func (g *GameDayOfDefeatSource) UpdateServer() {
-	panic("Not Implemented") // TODO
+	libsteamcmd.ServerUpdate(g.folder, gameID)
 }
 
 func (g *GameDayOfDefeatSource) StartServer() {

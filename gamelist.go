@@ -1,8 +1,8 @@
 package main
 
 import (
-	"github.com/kuche1/game-server/impl/dods"
 	"github.com/kuche1/game-server/libgame"
+	"github.com/kuche1/game-server/libimpl/dods"
 )
 
 var GameList = map[string](func(gameFolder string) libgame.Game){
