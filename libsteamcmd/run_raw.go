@@ -1,9 +1,7 @@
 package libsteamcmd
 
 import (
-	"log"
-	"os"
-	"os/exec"
+	"github.com/kuche1/game-server/libutil"
 )
 
 func runCustom(forceInstallDir string, additionalCmdline ...string) {
@@ -12,12 +10,12 @@ func runCustom(forceInstallDir string, additionalCmdline ...string) {
 
 	///// check that steamcmd is installed
 
-	cmd := exec.Command(executable, "--help")
-
-	err := cmd.Run()
-	if err != nil {
-		log.Fatal(err)
-	}
+	libutil.Exec(
+		executable,
+		false,
+		"",
+		"--help",
+	)
 
 	///// run command
 
@@ -27,12 +25,10 @@ func runCustom(forceInstallDir string, additionalCmdline ...string) {
 	args = append(args, additionalCmdline...)
 	args = append(args, "+exit")
 
-	cmd = exec.Command(executable, args...)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-
-	err = cmd.Run()
-	if err != nil {
-		log.Fatal(err)
-	}
+	libutil.Exec(
+		executable,
+		true,
+		"",
+		args...,
+	)
 }

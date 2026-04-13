@@ -5,6 +5,7 @@ package dods
 import (
 	"github.com/kuche1/game-server/libgame"
 	"github.com/kuche1/game-server/libsteamcmd"
+	"github.com/kuche1/game-server/libutil"
 )
 
 const gameID = 232290
@@ -28,7 +29,16 @@ func (g *GameDayOfDefeatSource) UpdateServer() {
 }
 
 func (g *GameDayOfDefeatSource) StartServer() {
-	panic("Not Implemented") // TODO
+	libutil.Exec(
+		"./srcds_run",
+		true,
+		g.folder,
+		"-console", // TODO: remove if possible
+		"-game", "dod",
+		"-secure",           // TODO: remove if possible
+		"+maxplayers", "22", // TODO: remove if possible
+		"+map", "dod_anzio", // TODO: remove if possible
+	)
 }
 
 func (g *GameDayOfDefeatSource) StartServerFork() {

@@ -3,6 +3,7 @@ package libutil
 import (
 	"log"
 	"os"
+	"os/exec"
 )
 
 func Exists(path string) bool {
@@ -27,4 +28,20 @@ func IsFolder(path string) bool {
 	}
 
 	return info.IsDir()
+}
+
+func Exec(executable string, printOutput bool, cwd string, args ...string) {
+	cmd := exec.Command(executable, args...)
+
+	cmd.Dir = cwd
+
+	if printOutput {
+		cmd.Stdout = os.Stdout
+		cmd.Stderr = os.Stderr
+	}
+
+	err := cmd.Run()
+	if err != nil {
+		log.Fatal(err)
+	}
 }
